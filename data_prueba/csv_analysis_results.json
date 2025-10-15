@@ -1,0 +1,308 @@
+[
+  {
+    "table_name": "transactionaccountingline",
+    "columns": {
+      "account": {
+        "data_type": "double"
+      },
+      "accountingbook": {
+        "data_type": "boolean"
+      },
+      "accounttype": {
+        "data_type": "string"
+      },
+      "amount": {
+        "data_type": "double"
+      },
+      "amountlinked": {
+        "data_type": "boolean"
+      },
+      "credit": {
+        "data_type": "double"
+      },
+      "exchangerate": {
+        "data_type": "double"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "netamount": {
+        "data_type": "double"
+      },
+      "posting": {
+        "data_type": "string"
+      },
+      "transaction": {
+        "data_type": "int"
+      },
+      "transactionline": {
+        "data_type": "string"
+      },
+      "debit": {
+        "data_type": "double"
+      },
+      "processedbyrevcommit": {
+        "data_type": "string"
+      }
+    }
+  },
+  {
+    "table_name": "transactionline",
+    "columns": {
+      "assemblycomponent": {
+        "data_type": "string"
+      },
+      "blandedcost": {
+        "data_type": "string"
+      },
+      "cleared": {
+        "data_type": "string"
+      },
+      "commitmentfirm": {
+        "data_type": "string"
+      },
+      "costestimatetype": {
+        "data_type": "string"
+      },
+      "cseg_ar_tipo_venta": {
+        "data_type": "double"
+      },
+      "debitforeignamount": {
+        "data_type": "double"
+      },
+      "department": {
+        "data_type": "double"
+      },
+      "donotdisplayline": {
+        "data_type": "string"
+      },
+      "donotprintline": {
+        "data_type": "string"
+      },
+      "dropship": {
+        "data_type": "string"
+      },
+      "eliminate": {
+        "data_type": "string"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "excludefrompredictiverisk": {
+        "data_type": "string"
+      },
+      "expectedshipdate": {
+        "data_type": "date"
+      },
+      "expenseaccount": {
+        "data_type": "int"
+      },
+      "foreignamount": {
+        "data_type": "double"
+      },
+      "fxamountlinked": {
+        "data_type": "boolean"
+      },
+      "hascostline": {
+        "data_type": "string"
+      },
+      "hasfulfillableitems": {
+        "data_type": "string"
+      },
+      "id": {
+        "data_type": "boolean"
+      },
+      "isbillable": {
+        "data_type": "string"
+      },
+      "isbomrevisioncomponent": {
+        "data_type": "string"
+      },
+      "isclosed": {
+        "data_type": "string"
+      },
+      "iscogs": {
+        "data_type": "string"
+      },
+      "iscustomglline": {
+        "data_type": "string"
+      },
+      "isfullyshipped": {
+        "data_type": "string"
+      },
+      "isfxvariance": {
+        "data_type": "string"
+      },
+      "isinventoryaffecting": {
+        "data_type": "string"
+      },
+      "isitemvalueadjustment": {
+        "data_type": "string"
+      },
+      "isrevrectransaction": {
+        "data_type": "string"
+      },
+      "isscrap": {
+        "data_type": "string"
+      },
+      "kitcomponent": {
+        "data_type": "string"
+      },
+      "landedcostperline": {
+        "data_type": "string"
+      },
+      "linecreateddate": {
+        "data_type": "date"
+      },
+      "linelastmodifieddate": {
+        "data_type": "date"
+      },
+      "linesequencenumber": {
+        "data_type": "boolean"
+      },
+      "location": {
+        "data_type": "int"
+      },
+      "mainline": {
+        "data_type": "string"
+      },
+      "matchbilltoreceipt": {
+        "data_type": "string"
+      },
+      "netamount": {
+        "data_type": "double"
+      },
+      "oldcommitmentfirm": {
+        "data_type": "string"
+      },
+      "processedbyrevcommit": {
+        "data_type": "string"
+      },
+      "quantitybilled": {
+        "data_type": "boolean"
+      },
+      "quantityrejected": {
+        "data_type": "boolean"
+      },
+      "quantityshiprecv": {
+        "data_type": "boolean"
+      },
+      "specialorder": {
+        "data_type": "string"
+      },
+      "subsidiary": {
+        "data_type": "int"
+      },
+      "taxline": {
+        "data_type": "string"
+      },
+      "transaction": {
+        "data_type": "int"
+      },
+      "transactiondiscount": {
+        "data_type": "string"
+      },
+      "uniquekey": {
+        "data_type": "int"
+      },
+      "creditforeignamount": {
+        "data_type": "double"
+      },
+      "documentnumber": {
+        "data_type": "string"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "quantity": {
+        "data_type": "double"
+      },
+      "quantitypacked": {
+        "data_type": "double"
+      },
+      "quantitypicked": {
+        "data_type": "double"
+      },
+      "quantityrequestedtofulfill": {
+        "data_type": "double"
+      },
+      "cleareddate": {
+        "data_type": "date"
+      },
+      "settlementamount": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "transactionshippingaddress",
+    "columns": {
+      "addr1": {
+        "data_type": "string"
+      },
+      "addressee": {
+        "data_type": "string"
+      },
+      "addrphone": {
+        "data_type": "string"
+      },
+      "addrtext": {
+        "data_type": "string"
+      },
+      "city": {
+        "data_type": "string"
+      },
+      "country": {
+        "data_type": "string"
+      },
+      "custrecord_ar_posee_herram_descargue": {
+        "data_type": "string"
+      },
+      "custrecord_ar_posee_muelle_desc": {
+        "data_type": "string"
+      },
+      "custrecord_ar_req_aux_descargue": {
+        "data_type": "string"
+      },
+      "custrecord_bit_lt_city_sbrcd": {
+        "data_type": "double"
+      },
+      "custrecord_bit_lt_country_sbrcd": {
+        "data_type": "string"
+      },
+      "custrecord_bit_lt_states_depts_sbrcd": {
+        "data_type": "double"
+      },
+      "dropdownstate": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "nkey": {
+        "data_type": "int"
+      },
+      "override": {
+        "data_type": "string"
+      },
+      "recordowner": {
+        "data_type": "int"
+      },
+      "state": {
+        "data_type": "string"
+      },
+      "zip": {
+        "data_type": "double"
+      },
+      "addr2": {
+        "data_type": "string"
+      },
+      "custrecord_ar_barrio_direccion": {
+        "data_type": "string"
+      },
+      "attention": {
+        "data_type": "string"
+      }
+    }
+  }
+]

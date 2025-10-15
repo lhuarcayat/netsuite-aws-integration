@@ -1,0 +1,795 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation template to create an S3 Data Lake (Bronze, Silver, Gold), AWS Glue Workflow with Job, Crawler, and EventBridge Rule to trigger Glue workflow when a file is uploaded to S3."
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Parametros de Entorno"
+        Parameters:
+          - COID
+          - ASSETID
+          - APPID
+          - ENV
+          - NUM
+          - SRC
+      - Label:
+          default: "Buckets de S3 a desplegar"
+        Parameters:
+          - CreateBronzeBucket
+          - CreateSilverBucket
+          - CreateGoldBucket
+          - CreateGlueBucket
+          - CreateAthenaBucket
+      - Label:
+          default: "Forma de ejecucion del workflow"
+        Parameters:
+          - StartTriggerType
+          - UseLakeFormation
+      - Label:
+          default: "Recursos comunes de Redshift a desplegar"
+        Parameters:
+          - CreateRedshift
+          - RedshiftMode
+          - VpcId
+          - SubnetIds
+          - SecurityGroupIds
+          - FederatedRole
+          - RedshiftDatabaseName
+          - RedshiftMasterUsername
+          - RedshiftMasterPassword
+      - Label:
+          default: "Parametros de Redshift Cluster"
+        Parameters:  
+          - RedshiftClusterType
+          - RedshiftNodeType
+          - RedshiftNumberOfNodes
+          - EnableClusterSchedule
+      - Label:
+          default: "Parametros de Redshift Serverless"
+        Parameters:
+          - RedshiftNamespaceName
+          - RedshiftWorkgroupName
+          - RedshiftBaseCapacity
+
+Parameters:
+  COID:
+    Type: String
+    Description: COID - Codigo del cliente
+    Default: "apply"
+
+  ASSETID:
+    Type: String
+    Description: ASSETID - ID numerico del proyecto
+    Default: "0201"
+
+  APPID:
+    Type: String
+    Description: APPID - Abreviatura del proyecto
+    Default: "hermes"
+  
+  ENV:
+    Description: ENV - Nombre del ambiente
+    Type: String
+    AllowedValues: ["sandbox", "dev", "qa", "uat", "prod"]
+    Default: "dev"
+  
+  NUM:
+    Type: String
+    Description: NUM - Numero del recurso levantado
+    Default: "00"
+  
+  SRC:
+    Type: String
+    Description: SRC - Nombre o abreviatura de la fuente de datos
+    Default: "hubspot"
+
+  StartTriggerType:
+    Type: String
+    Default: "on_demand"
+    AllowedValues:
+      - "on_demand"
+      - "event"
+    Description: Define si se crea una regla de EventBridge para disparar el workflow.
+
+  CreateBronzeBucket:
+    Type: String
+    AllowedValues: [true, false]
+    Default: true
+    Description: Especificar si se quiere crear el bucket S3 para Bronze Data
+
+  CreateSilverBucket:
+    Type: String
+    AllowedValues: [true, false]
+    Default: true
+    Description: Especificar si se quiere crear el bucket S3 para Silver Data
+
+  CreateGoldBucket:
+    Type: String
+    AllowedValues: [true, false]
+    Default: true
+    Description: Especificar si se quiere crear el bucket S3 para Gold data
+
+  CreateGlueBucket:
+    Type: String
+    AllowedValues: [true, false]
+    Default: true
+    Description: Especificar si se quiere crear el bucket S3 para AWS Glue
+
+  CreateAthenaBucket:
+    Type: String
+    AllowedValues: [true, false]
+    Default: true
+    Description: Especificar si se quiere crear el bucket S3 para Athena
+  
+  UseLakeFormation:
+    Type: String
+    AllowedValues: [true, false]
+    Default: false
+    Description: Indicar si se deben crear permisos y recursos relacionados con Lake Formation.
+
+  CreateRedshift:
+    Type: String
+    AllowedValues: [true, false]
+    Default: false
+    Description: Indicar si se quiere crear Redshift Serverless
+
+  RedshiftMode:
+    Type: String
+    AllowedValues: ["Cluster", "Serverless"]
+    Default: "Cluster"
+    Description: Selecciona el modo de Redshift a crear
+  
+  # Par?metros comunes
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: ID de la VPC donde se desplegar? el cluster de Redshift
+
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: Subnets para Redshift
+
+  SecurityGroupIds:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Description: Security Groups para Redshift
+  
+  FederatedRole:
+    Type: String
+    Description: Nombre del rol federado (IAM cross-account)
+  
+  RedshiftDatabaseName:
+    Type: String
+    Default: "dev"
+    Description: "Nombre de la base de datos en Redshift"
+
+  RedshiftMasterUsername:
+    Type: String
+    Default: "awsuser"
+    Description: "Usuario maestro para el cluster de Redshift"
+
+  RedshiftMasterPassword:
+    Type: String
+    Description: "Contrase?a para el usuario maestro de Redshift"
+    NoEcho: true
+  
+  # Par?metros Cluster
+  RedshiftClusterType:
+    Type: String
+    Default: "multi-node"
+    AllowedValues: ["single-node", "multi-node"]
+    Description: Tipo de cluster
+
+  RedshiftNodeType:
+    Type: String
+    Default: "ra3.large"
+    Description: Tipo de nodo
+
+  RedshiftNumberOfNodes:
+    Type: Number
+    Default: 2
+    Description: Numero de nodos (solo multi-node)
+  
+  EnableClusterSchedule:
+    Type: String
+    Default: "false"
+    AllowedValues: [true, false]
+    Description: Activar programacion automatica de encendido/apagado del cluster Redshift (solo en modo cluster).
+  
+  # Par?metros Serverless
+  RedshiftNamespaceName:
+    Type: String
+    Default: "redshift"
+    Description: Nombre del namespace de Redshift Serverless
+
+  RedshiftWorkgroupName:
+    Type: String
+    Default: "redshift"
+    Description: Nombre del workgroup de Redshift Serverless
+  
+  RedshiftBaseCapacity:
+    Type: Number
+    Default: 4
+    Description: Capacidad base de Redshift Serverless (RPU)
+
+Conditions:
+  CreateBronzeData: !Equals [!Ref CreateBronzeBucket, true]
+  CreateSilverData: !Equals [!Ref CreateSilverBucket, true]
+  CreateGoldData: !Equals [!Ref CreateGoldBucket, true]
+  CreateGlueData: !Equals [!Ref CreateGlueBucket, true]
+  CreateAthenaData: !Equals [!Ref CreateAthenaBucket, true]
+  CreateLakeFormationResources: !Equals [!Ref UseLakeFormation, true]
+  CreateEventRule: !Equals [!Ref StartTriggerType, event]
+  NotCreateEventRule: !Not [!Equals [!Ref StartTriggerType, event]]
+  CreateRedshiftData: !Equals [!Ref CreateRedshift, true]
+  IsRedshiftCluster: !And
+    - Condition: CreateRedshiftData
+    - !Equals [!Ref RedshiftMode, Cluster]
+  IsRedshiftServerless: !And
+    - Condition: CreateRedshiftData
+    - !Equals [!Ref RedshiftMode, Serverless]
+  IsMultiNode: !Equals [!Ref RedshiftClusterType, multi-node]
+  EnableClusterSchedule: !Equals [!Ref EnableClusterSchedule, true]
+
+Resources:
+  BronzeBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateBronzeData
+    Properties:
+      BucketName: !Sub "${COID}-${ASSETID}-${APPID}-${ENV}-${NUM}-${SRC}-bronze-data"
+      NotificationConfiguration:
+        EventBridgeConfiguration:
+          EventBridgeEnabled: true
+
+  SilverBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateSilverData
+    Properties:
+      BucketName: !Sub "${COID}-${ASSETID}-${APPID}-${ENV}-${NUM}-${SRC}-silver-data"
+
+  GoldBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateGoldData
+    Properties:
+      BucketName: !Sub "${COID}-${ASSETID}-${APPID}-${ENV}-${NUM}-${SRC}-gold-data"
+
+  GlueBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateGlueData
+    Properties:
+      BucketName: !Sub "${COID}-${ENV}-${NUM}-glue"
+
+  AthenaBucket:
+    Type: AWS::S3::Bucket
+    Condition: CreateAthenaData
+    Properties:
+      BucketName: !Sub "${COID}-${ENV}-${NUM}-athena"
+      LifecycleConfiguration:
+        Rules:
+          - Id: "ExpireResults"
+            Status: Enabled
+            ExpirationInDays: 30
+
+  AthenaWorkGroup:
+    Type: AWS::Athena::WorkGroup
+    Condition: CreateAthenaData
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-data-analytics-wg"
+      Description: "WorkGroup para consultas anal?ticas"
+      State: ENABLED
+      RecursiveDeleteOption: true
+      WorkGroupConfiguration:
+        PublishCloudWatchMetricsEnabled: true
+        ResultConfiguration:
+          OutputLocation: !Sub "s3://${AthenaBucket}/"
+  
+  GlueDatalakeRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${COID}-${ENV}-glue-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Policies:
+        - PolicyName: GlueDataLakePolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              # Acceso general a todos los buckets del modelo medall?n (bronze, silver, gold)
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::${BronzeBucket}"
+                  - !Sub "arn:aws:s3:::${BronzeBucket}/*"
+                  - !Sub "arn:aws:s3:::${SilverBucket}"
+                  - !Sub "arn:aws:s3:::${SilverBucket}/*"
+                  - !Sub "arn:aws:s3:::${GoldBucket}"
+                  - !Sub "arn:aws:s3:::${GoldBucket}/*"
+              
+              # Acceso al bucket de Glue
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::${GlueBucket}"
+                  - !Sub "arn:aws:s3:::${GlueBucket}/*"
+              
+              - Effect: Allow
+                Action:
+                  - glue:* 
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - logs:* 
+                Resource: "*"
+
+  GrantLakeFormationPermissionsToGlue:
+    Type: AWS::LakeFormation::Permissions
+    Condition: CreateLakeFormationResources
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueDatalakeRole.Arn
+      Permissions:
+        - ALL
+      Resource:
+        DatabaseResource:
+          Name: !Ref GlueSilverDatabase
+  
+  GrantLakeFormationSelectToAthena:
+    Type: AWS::LakeFormation::Permissions
+    Condition: CreateLakeFormationResources
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !Sub "arn:aws:iam::${AWS::AccountId}:role/${FederatedRole}"
+      Permissions:
+        - SELECT
+      Resource:
+        TableResource:
+          DatabaseName: !Ref GlueSilverDatabase
+          TableWildcard: {}
+
+  GrantLakeFormationDescribeToRedshift:
+    Type: AWS::LakeFormation::Permissions
+    Condition: CreateLakeFormationResources
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt RedshiftRole.Arn
+      Permissions:
+        - DESCRIBE
+      Resource:
+        DatabaseResource:
+          Name: !Ref GlueSilverDatabase
+
+  GrantLakeFormationSelectToRedshift:
+    Type: AWS::LakeFormation::Permissions
+    Condition: CreateLakeFormationResources
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt RedshiftRole.Arn
+      Permissions:
+        - SELECT
+      Resource:
+        TableResource:
+          DatabaseName: !Ref GlueSilverDatabase
+          TableWildcard: {}
+
+  GlueBronzeDatabase:
+    Type: AWS::Glue::Database
+    Condition: CreateBronzeData
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-bronze-database"
+  
+  GlueSilverDatabase:
+    Type: AWS::Glue::Database
+    Condition: CreateSilverData
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-silver-database"
+
+  GlueGoldDatabase:
+    Type: AWS::Glue::Database
+    Condition: CreateGoldData
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-gold-database"
+  
+  GlueWorkflowEvent:
+    Type: AWS::Glue::Workflow
+    Condition: CreateEventRule
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-event-workflow"
+    
+  GlueWorkflowOnDemand:
+    Type: AWS::Glue::Workflow
+    Condition: NotCreateEventRule
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-on-demand-workflow"
+
+  NetsuiteSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-secret"
+      Description: "Credenciales Netsuite (ACCOUNT_ID, CLIENT_ID, CLIENT_SECRET, CERTIFICATE_ID)"
+      SecretString: !Sub |
+        {
+          "ACCOUNT_ID": "5842241",
+          "CLIENT_ID": "16d9a97f32776789b0639a5a2b87d762c0a09a7756bd9f6e312d97ee5f96c64d",
+          "CLIENT_SECRET": "4e5b572828b3bff251b998357ef9d70800c2e24df5b49c7e2200041c3123e5f0",
+          "CERTIFICATE_ID": "yMUitfLH4xM6q_C2Q0EokHWRfHOeD-4LvkejzmBq_1c"
+        }
+  
+  MigrationtJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-migration-job"
+      Role: !GetAtt GlueDatalakeRole.Arn
+      Command:
+        Name: pythonshell
+        ScriptLocation: !Sub "s3://${GlueBucket}/scripts/migration-job.py"
+        PythonVersion: 3.9
+      DefaultArguments:
+        --job-language: "python"
+        --enable-metrics: ""
+        --TempDir: !Sub "s3://${GlueBucket}/temporary/"
+        --INPUT_S3_BUCKET_NAME: !Ref GlueBucket
+        --S3_KEY_PATH: "credentials/private_key.pem"
+        --OUTPUT_S3_BUCKET_NAME: !Ref BronzeBucket
+        --SECRET_NAME: !Ref NetsuiteSecret
+        --REGION_NAME: !Ref AWS::Region
+        --additional-python-modules: "pandas==1.5.3,pyarrow==12.0.1,pyjwt==2.8.0"
+      ExecutionProperty:
+        MaxConcurrentRuns: 1
+      MaxRetries: 0
+      Timeout: 480
+      MaxCapacity: 0.0625
+
+  # TransformToParquetJob:
+  #   Type: AWS::Glue::Job
+  #   Properties:
+  #     Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-transform-parquet-job"
+  #     Role: !GetAtt GlueDatalakeRole.Arn
+  #     Command:
+  #       Name: pythonshell
+  #       ScriptLocation: !Sub "s3://${GlueBucket}/scripts/transform_to_parquet.py"
+  #       PythonVersion: 3.9
+  #     DefaultArguments:
+  #       --job-language: "python"
+  #       --enable-metrics: ""
+  #       --TempDir: !Sub "s3://${GlueBucket}/temporary/"
+  #       --INPUT_S3_BUCKET_NAME: !Ref BronzeBucket
+  #       --OUTPUT_S3_BUCKET_NAME: !Ref SilverBucket
+  #       --additional-python-modules: "pandas==1.5.3,pyarrow==12.0.1"
+  #     ExecutionProperty:
+  #       MaxConcurrentRuns: 1
+  #     MaxRetries: 0
+  #     Timeout: 10
+  #     MaxCapacity: 0.0625
+
+  StartGlueTriggerEvent:
+    Type: AWS::Glue::Trigger
+    Condition: CreateEventRule
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-event-trigger-start"
+      Type: EVENT
+      WorkflowName: !Ref GlueWorkflowEvent
+      Actions:
+        - JobName: !Ref MigrationtJob
+      EventBatchingCondition:
+        BatchSize: 1
+        BatchWindow: 1
+  
+  StartGlueTriggerOnDemand:
+    Type: AWS::Glue::Trigger
+    Condition: NotCreateEventRule
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-on-demand-trigger-start"
+      Type: ON_DEMAND
+      WorkflowName: !Ref GlueWorkflowOnDemand
+      Actions:
+        - JobName: !Ref MigrationtJob
+
+  GlueTriggerEvent01:
+    Type: AWS::Glue::Trigger
+    Condition: CreateEventRule
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-event-trigger-01"
+      Type: CONDITIONAL
+      StartOnCreation: true
+      WorkflowName: !Ref GlueWorkflowEvent
+      Predicate:
+        Logical: AND
+        Conditions:
+          - JobName: !Ref MigrationtJob
+            LogicalOperator: EQUALS
+            State: SUCCEEDED
+      Actions:
+        - CrawlerName: !Ref GlueBronzeCrawler
+    
+  GlueTriggerOnDemand01:
+    Type: AWS::Glue::Trigger
+    Condition: NotCreateEventRule
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-on-demand-trigger-01"
+      Type: CONDITIONAL
+      StartOnCreation: true
+      WorkflowName: !Ref GlueWorkflowOnDemand
+      Predicate:
+        Logical: AND
+        Conditions:
+          - JobName: !Ref MigrationtJob
+            LogicalOperator: EQUALS
+            State: SUCCEEDED
+      Actions:
+        - CrawlerName: !Ref GlueBronzeCrawler
+  
+  GlueBronzeCrawler:
+    Type: AWS::Glue::Crawler
+    Condition: CreateBronzeData
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-bronze-crawler"
+      Role: !GetAtt GlueDatalakeRole.Arn
+      DatabaseName: !Ref GlueBronzeDatabase
+      Targets:
+        S3Targets:
+          - Path: !Sub "s3://${BronzeBucket}"
+      Configuration: "{\"Version\":1.0,\"CrawlerOutput\":{\"Partitions\":{\"AddOrUpdateBehavior\": \"InheritFromTable\"}},\"Grouping\":{\"TableLevelConfiguration\":2}}"
+      SchemaChangePolicy:
+        DeleteBehavior: DELETE_FROM_DATABASE
+  
+  GlueSilverCrawler:
+    Type: AWS::Glue::Crawler
+    Condition: CreateSilverData
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-silver-crawler"
+      Role: !GetAtt GlueDatalakeRole.Arn
+      DatabaseName: !Ref GlueSilverDatabase
+      Targets:
+        S3Targets:
+          - Path: !Sub "s3://${SilverBucket}"
+      Configuration: "{\"Version\":1.0,\"CrawlerOutput\":{\"Partitions\":{\"AddOrUpdateBehavior\": \"InheritFromTable\"}},\"Grouping\":{\"TableLevelConfiguration\":2}}"
+      SchemaChangePolicy:
+        DeleteBehavior: DELETE_FROM_DATABASE
+
+  GlueGoldCrawler:
+    Type: AWS::Glue::Crawler
+    Condition: CreateGoldData
+    Properties:
+      Name: !Sub "${COID}-${ENV}-${NUM}-${SRC}-gold-crawler"
+      Role: !GetAtt GlueDatalakeRole.Arn
+      DatabaseName: !Ref GlueGoldDatabase
+      Targets:
+        S3Targets:
+          - Path: !Sub "s3://${GoldBucket}"
+      Configuration: "{\"Version\":1.0,\"CrawlerOutput\":{\"Partitions\":{\"AddOrUpdateBehavior\": \"InheritFromTable\"}},\"Grouping\":{\"TableLevelConfiguration\":2}}"
+      SchemaChangePolicy:
+        DeleteBehavior: DELETE_FROM_DATABASE
+  
+  EventBridgeGlueRole:
+    Type: AWS::IAM::Role
+    Condition: CreateEventRule
+    Properties:
+      RoleName: !Sub "${COID}-${ENV}-eventbridge-glue-role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: events.amazonaws.com
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/CloudWatchEventsBuiltInTargetExecutionAccess
+        - arn:aws:iam::aws:policy/service-role/CloudWatchEventsInvocationAccess
+
+  GlueNotifyEventPolicy:
+    Type: "AWS::IAM::Policy"
+    Condition: CreateEventRule
+    Properties:
+      Roles:
+        - !Ref EventBridgeGlueRole
+      PolicyName: !Sub "${COID}-${ENV}-glue-notify-iam-policy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - glue:notifyEvent
+            Resource: !Sub arn:aws:glue:${AWS::Region}:${AWS::AccountId}:workflow/${GlueWorkflowEvent}
+  
+  EventBridgeRuleS3ToGlue:
+    Type: AWS::Events::Rule
+    Condition: CreateEventRule
+    Properties:
+      Name: !Sub "${COID}-${ENV}-bronze-s3-upload-trigger"
+      EventPattern:
+        source:
+          - "aws.s3"
+        detail-type:
+          - "Object Created"
+        detail:
+          bucket:
+            name:
+              - !Ref BronzeBucket
+          object:
+            key:
+              - suffix: ".csv"
+      Targets:
+        - Id: GlueWorkflowTarget
+          Arn: !Sub "arn:aws:glue:${AWS::Region}:${AWS::AccountId}:workflow/${GlueWorkflowEvent}"
+          RoleArn: !GetAtt EventBridgeGlueRole.Arn
+
+  RedshiftRole:
+    Type: AWS::IAM::Role
+    Condition: CreateRedshiftData
+    Properties:
+      RoleName: !Sub "${COID}-${ENV}-RedshiftRole"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: redshift.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonRedshiftAllCommandsFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
+      Policies:
+        - PolicyName: GlueAndLakeFormationAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - glue:GetDatabase
+                  - glue:GetDatabases
+                  - glue:GetTable
+                  - glue:GetTables
+                  - glue:GetPartitions
+                  - lakeformation:GetDataAccess
+                Resource: "*"
+
+  SchedulerRole:
+    Condition: IsRedshiftCluster
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${COID}-${ENV}-SchedulerRoleName"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - scheduler.redshift.amazonaws.com
+                - redshift.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: RedshiftScheduledActionsPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - redshift:PauseCluster
+                  - redshift:ResumeCluster
+                Resource: !Sub "arn:aws:redshift:${AWS::Region}:${AWS::AccountId}:cluster:${RedshiftCluster}"
+  
+  RedshiftSubnetGroup:
+    Type: "AWS::Redshift::ClusterSubnetGroup"
+    Condition: IsRedshiftCluster
+    Properties:
+      Description: "Grupo de subredes para Redshift"
+      ClusterSubnetGroupName: !Sub "${COID}-${ENV}-cluster-subnet-group"
+      SubnetIds: !Ref SubnetIds
+
+  RedshiftClusterParameterGroup:
+    Type: 'AWS::Redshift::ClusterParameterGroup'
+    Condition: IsRedshiftCluster
+    Properties:
+      Description: "Enables case sensitivity"
+      ParameterGroupFamily: redshift-2.0
+      ParameterGroupName: !Sub "${COID}-${ENV}-redshift-cluster-parameter-group"
+      Parameters:
+        - ParameterName: enable_case_sensitive_identifier
+          ParameterValue: 'true'
+
+  RedshiftCluster:
+    Type: "AWS::Redshift::Cluster"
+    Condition: IsRedshiftCluster
+    Properties:
+      ClusterIdentifier: !Sub "${COID}-${ENV}-redshift-cluster"
+      ClusterParameterGroupName: !Ref RedshiftClusterParameterGroup
+      DBName: !Ref RedshiftDatabaseName
+      MasterUsername: !Ref RedshiftMasterUsername
+      MasterUserPassword: !Ref RedshiftMasterPassword
+      NodeType: !Ref RedshiftNodeType
+      ClusterType: !Ref RedshiftClusterType
+      NumberOfNodes: !If [IsMultiNode, !Ref RedshiftNumberOfNodes, !Ref "AWS::NoValue"]
+      PubliclyAccessible: false
+      Encrypted: true
+      VpcSecurityGroupIds: !Ref SecurityGroupIds
+      ClusterSubnetGroupName: !Ref RedshiftSubnetGroup
+      IamRoles:
+        - !GetAtt RedshiftRole.Arn
+  
+  ResumeRedshiftClusterScheduledAction:
+    Type: AWS::Redshift::ScheduledAction
+    Condition: IsRedshiftCluster
+    Properties:
+      ScheduledActionName: !Sub "${COID}-${ENV}-ResumeCluster"
+      IamRole: !GetAtt SchedulerRole.Arn
+      Schedule: cron(0 14 ? * MON-FRI *)
+      TargetAction:
+        ResumeCluster:
+          ClusterIdentifier: !Ref RedshiftCluster
+      Enable: true
+  
+  PauseRedshiftClusterScheduledAction:
+    Type: AWS::Redshift::ScheduledAction
+    Condition: IsRedshiftCluster
+    Properties:
+      ScheduledActionName: !Sub "${COID}-${ENV}-PauseCluster"
+      IamRole: !GetAtt SchedulerRole.Arn
+      Schedule: cron(0 22 ? * MON-FRI *)
+      TargetAction:
+        PauseCluster:
+          ClusterIdentifier: !Ref RedshiftCluster
+      Enable: true
+  
+  RedshiftNamespace:
+    Type: AWS::RedshiftServerless::Namespace
+    Condition: IsRedshiftServerless
+    Properties:
+      NamespaceName: !Sub "${COID}-${ENV}-${RedshiftNamespaceName}-serverless-ns"
+      AdminUsername: !Ref RedshiftMasterUsername
+      AdminUserPassword: "Redshift123!"
+      DbName: !Ref RedshiftDatabaseName
+      IamRoles:
+        - !GetAtt RedshiftRole.Arn
+
+  RedshiftWorkgroup:
+    Type: AWS::RedshiftServerless::Workgroup
+    Condition: IsRedshiftServerless
+    Properties:
+      WorkgroupName: !Sub "${COID}-${ENV}-${RedshiftWorkgroupName}-serverless-wg"
+      NamespaceName: !Ref RedshiftNamespace
+      BaseCapacity: !Ref RedshiftBaseCapacity
+      ConfigParameters:
+        - ParameterKey: enable_case_sensitive_identifier
+          ParameterValue: "true"
+      EnhancedVpcRouting: false
+    DependsOn: RedshiftNamespace
+
+Outputs:
+  RedshiftClusterEndpoint:
+    Condition: IsRedshiftCluster
+    Description: Endpoint del cluster Redshift
+    Value: !GetAtt RedshiftCluster.Endpoint.Address
+
+  RedshiftWorkgroupEndpoint:
+    Condition: IsRedshiftServerless
+    Description: Endpoint del Workgroup Redshift Serverless
+    Value: !GetAtt RedshiftWorkgroup.Endpoint.Address

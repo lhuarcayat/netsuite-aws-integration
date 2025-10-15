@@ -1,0 +1,2483 @@
+[
+  {
+    "table_name": "inventorybalance",
+    "columns": {
+      "binnumber": {
+        "data_type": "double"
+      },
+      "committedqtyperlocation": {
+        "data_type": "double"
+      },
+      "committedqtyperseriallotnumber": {
+        "data_type": "double"
+      },
+      "committedqtyperseriallotnumberlocation": {
+        "data_type": "double"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "inventorynumber": {
+        "data_type": "double"
+      },
+      "inventorystatus": {
+        "data_type": "boolean"
+      },
+      "item": {
+        "data_type": "int"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "location": {
+        "data_type": "int"
+      },
+      "quantityavailable": {
+        "data_type": "double"
+      },
+      "quantityonhand": {
+        "data_type": "double"
+      },
+      "quantitypicked": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "item",
+    "columns": {
+      "autoleadtime": {
+        "data_type": "string"
+      },
+      "autopreferredstocklevel": {
+        "data_type": "string"
+      },
+      "autoreorderpoint": {
+        "data_type": "string"
+      },
+      "averagecost": {
+        "data_type": "string"
+      },
+      "billexchratevarianceacct": {
+        "data_type": "string"
+      },
+      "billpricevarianceacct": {
+        "data_type": "double"
+      },
+      "billqtyvarianceacct": {
+        "data_type": "double"
+      },
+      "copydescription": {
+        "data_type": "string"
+      },
+      "costcategory": {
+        "data_type": "double"
+      },
+      "createddate": {
+        "data_type": "string"
+      },
+      "createjob": {
+        "data_type": "string"
+      },
+      "custitem_prompt_payment_discount_item": {
+        "data_type": "string"
+      },
+      "deposit": {
+        "data_type": "string"
+      },
+      "enforceminqtyinternally": {
+        "data_type": "string"
+      },
+      "expenseaccount": {
+        "data_type": "string"
+      },
+      "froogleproductfeed": {
+        "data_type": "string"
+      },
+      "fullname": {
+        "data_type": "string"
+      },
+      "generateaccruals": {
+        "data_type": "string"
+      },
+      "id": {
+        "data_type": "double"
+      },
+      "includechildren": {
+        "data_type": "string"
+      },
+      "isdropshipitem": {
+        "data_type": "string"
+      },
+      "isfulfillable": {
+        "data_type": "string"
+      },
+      "isinactive": {
+        "data_type": "string"
+      },
+      "islotitem": {
+        "data_type": "string"
+      },
+      "isonline": {
+        "data_type": "string"
+      },
+      "isphantom": {
+        "data_type": "string"
+      },
+      "isserialitem": {
+        "data_type": "string"
+      },
+      "isspecialorderitem": {
+        "data_type": "string"
+      },
+      "itemid": {
+        "data_type": "string"
+      },
+      "itemtype": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "lastpurchaseprice": {
+        "data_type": "string"
+      },
+      "manufacturingchargeitem": {
+        "data_type": "string"
+      },
+      "matchbilltoreceipt": {
+        "data_type": "string"
+      },
+      "nextagproductfeed": {
+        "data_type": "string"
+      },
+      "printitems": {
+        "data_type": "string"
+      },
+      "seasonaldemand": {
+        "data_type": "string"
+      },
+      "shipindividually": {
+        "data_type": "string"
+      },
+      "shoppingproductfeed": {
+        "data_type": "string"
+      },
+      "shopzillaproductfeed": {
+        "data_type": "string"
+      },
+      "subsidiary": {
+        "data_type": "string"
+      },
+      "subtype": {
+        "data_type": "string"
+      },
+      "usemarginalrates": {
+        "data_type": "string"
+      },
+      "yahooproductfeed": {
+        "data_type": "string"
+      },
+      "costestimatetype": {
+        "data_type": "string"
+      },
+      "custitem_cmms_contract_sale": {
+        "data_type": "string"
+      },
+      "custitem_cmms_contract_sale_from_so": {
+        "data_type": "string"
+      },
+      "custitem_cmms_create_equipt_on_fulfil": {
+        "data_type": "string"
+      },
+      "custitem_cmms_enabled": {
+        "data_type": "string"
+      },
+      "custitem_cmms_is_rental_part": {
+        "data_type": "string"
+      },
+      "custitem_cmms_set_phantom_mm": {
+        "data_type": "string"
+      },
+      "custitem_shep_rental_indicator": {
+        "data_type": "string"
+      },
+      "custitem_wms_usetallyscan": {
+        "data_type": "string"
+      },
+      "description": {
+        "data_type": "string"
+      },
+      "dontshowprice": {
+        "data_type": "string"
+      },
+      "excludefromsitemap": {
+        "data_type": "string"
+      },
+      "incomeaccount": {
+        "data_type": "double"
+      },
+      "isdonationitem": {
+        "data_type": "string"
+      },
+      "showdefaultdonationamount": {
+        "data_type": "string"
+      },
+      "stockdescription": {
+        "data_type": "string"
+      },
+      "upccode": {
+        "data_type": "int"
+      },
+      "custitem_bit_lt_refoundaccount": {
+        "data_type": "string"
+      },
+      "displayname": {
+        "data_type": "string"
+      },
+      "consumptionunit": {
+        "data_type": "string"
+      },
+      "cost": {
+        "data_type": "string"
+      },
+      "custitem_cmms_add_as_addit_item": {
+        "data_type": "string"
+      },
+      "custitem_cmms_rntl_tm_grouping": {
+        "data_type": "string"
+      },
+      "department": {
+        "data_type": "string"
+      },
+      "fxcost": {
+        "data_type": "string"
+      },
+      "location": {
+        "data_type": "string"
+      },
+      "purchasedescription": {
+        "data_type": "string"
+      },
+      "purchaseunit": {
+        "data_type": "string"
+      },
+      "unitstype": {
+        "data_type": "string"
+      },
+      "custitem_cmms_is_lost_rental_charge": {
+        "data_type": "string"
+      },
+      "custitem_cmms_allow_rental_access_dnr": {
+        "data_type": "date"
+      },
+      "custitem_cmms_assign_comp_addit_eq_cso": {
+        "data_type": "double"
+      },
+      "custitem_cmms_assign_rent_end_on_creat": {
+        "data_type": "string"
+      },
+      "custitem_cmms_assign_rent_end_on_start": {
+        "data_type": "string"
+      },
+      "custitem_cmms_assign_rent_start_comp": {
+        "data_type": "string"
+      },
+      "custitem_cmms_assign_rent_strt_oncreat": {
+        "data_type": "string"
+      },
+      "custitem_cmms_auto_assign_cso_to_if": {
+        "data_type": "string"
+      },
+      "custitem_cmms_con_trip_new_trip_nxt_dy": {
+        "data_type": "int"
+      },
+      "custitem_cmms_enable_manual_ptm": {
+        "data_type": "string"
+      },
+      "custitem_cmms_inherit_sz_from_rc": {
+        "data_type": "int"
+      },
+      "custitem_cmms_non_billable_service": {
+        "data_type": "string"
+      },
+      "custitem_cmms_optional_equip_assign": {
+        "data_type": "string"
+      },
+      "custitem_cmms_remove_travel_option": {
+        "data_type": "string"
+      },
+      "custitem_cmms_requires_contract": {
+        "data_type": "string"
+      },
+      "custitem_cmms_roll_travel_into_labor": {
+        "data_type": "string"
+      },
+      "custitem_cmms_service_signature_reqd": {
+        "data_type": "string"
+      },
+      "custitem_cmms_stop_manuf_warranty_swap": {
+        "data_type": "int"
+      },
+      "custitem_cmms_tech_signature_reqd": {
+        "data_type": "boolean"
+      },
+      "custitem_ar_posicion_arancelaria": {
+        "data_type": "string"
+      },
+      "saleunit": {
+        "data_type": "double"
+      },
+      "weightunits": {
+        "data_type": "string"
+      },
+      "custitem_4601_defaultwitaxcode": {
+        "data_type": "string"
+      },
+      "custitem_ar_comprado": {
+        "data_type": "double"
+      },
+      "custitem_bit_co_tipo_actividadimpuesto": {
+        "data_type": "string"
+      },
+      "custitem_bit_lt_ei_item_code": {
+        "data_type": "string"
+      },
+      "class": {
+        "data_type": "string"
+      },
+      "assetaccount": {
+        "data_type": "string"
+      },
+      "atpmethod": {
+        "data_type": "string"
+      },
+      "buildentireassembly": {
+        "data_type": "string"
+      },
+      "costingmethod": {
+        "data_type": "string"
+      },
+      "costingmethoddisplay": {
+        "data_type": "string"
+      },
+      "cseg_ar_tipo_desarr": {
+        "data_type": "double"
+      },
+      "custitem_ar_ancho": {
+        "data_type": "double"
+      },
+      "custitem_ar_aplica_trim": {
+        "data_type": "string"
+      },
+      "custitem_ar_calibre_micras": {
+        "data_type": "double"
+      },
+      "custitem_ar_categoria_ventas": {
+        "data_type": "double"
+      },
+      "custitem_ar_descripcion_comex": {
+        "data_type": "int"
+      },
+      "custitem_ar_disponible_portal_web": {
+        "data_type": "string"
+      },
+      "custitem_ar_estado_ingenieria": {
+        "data_type": "string"
+      },
+      "custitem_ar_gramos": {
+        "data_type": "string"
+      },
+      "custitem_ar_id_anterior": {
+        "data_type": "string"
+      },
+      "custitem_ar_largo_rollos": {
+        "data_type": "double"
+      },
+      "custitem_ar_peso_bruto_articulo": {
+        "data_type": "double"
+      },
+      "custitem_ar_tipo": {
+        "data_type": "int"
+      },
+      "custitem_ar_und_cial_dian": {
+        "data_type": "int"
+      },
+      "custitem_bit_ar_articulo_de_trim": {
+        "data_type": "string"
+      },
+      "custitem_bit_ar_categoria_articulos": {
+        "data_type": "string"
+      },
+      "custitem_bit_ar_clase_articulo": {
+        "data_type": "double"
+      },
+      "custitem_bit_ar_factorconversion": {
+        "data_type": "string"
+      },
+      "custitem_bit_ar_grupo_articulos": {
+        "data_type": "string"
+      },
+      "custitem_bit_ar_tipo_articulos": {
+        "data_type": "double"
+      },
+      "custitem_bit_lt_ei_pe_selling_code": {
+        "data_type": "double"
+      },
+      "custitem_bit_no_validar_lotes": {
+        "data_type": "string"
+      },
+      "custitem_bit_pe_codpropexistencia": {
+        "data_type": "double"
+      },
+      "custitem_bit_pe_t14": {
+        "data_type": "double"
+      },
+      "custitem_bit_pe_t5": {
+        "data_type": "double"
+      },
+      "custitem_cmms_create_equipt_on_invadj": {
+        "data_type": "string"
+      },
+      "custitem_iqity_use_fifo": {
+        "data_type": "string"
+      },
+      "custitem_wmsse_mix_item": {
+        "data_type": "string"
+      },
+      "custitem_wmsse_mix_lot": {
+        "data_type": "string"
+      },
+      "custitem_wmsse_shelflife": {
+        "data_type": "double"
+      },
+      "isspecialworkorderitem": {
+        "data_type": "string"
+      },
+      "planningitemcategory": {
+        "data_type": "double"
+      },
+      "rotationtype": {
+        "data_type": "string"
+      },
+      "roundupascomponent": {
+        "data_type": "string"
+      },
+      "scrapacct": {
+        "data_type": "string"
+      },
+      "stockunit": {
+        "data_type": "double"
+      },
+      "supplyreplenishmentmethod": {
+        "data_type": "string"
+      },
+      "totalquantityonhand": {
+        "data_type": "double"
+      },
+      "totalvalue": {
+        "data_type": "double"
+      },
+      "tracklandedcost": {
+        "data_type": "string"
+      },
+      "usebins": {
+        "data_type": "string"
+      },
+      "weight": {
+        "data_type": "double"
+      },
+      "weightunit": {
+        "data_type": "double"
+      },
+      "wipacct": {
+        "data_type": "double"
+      },
+      "wipvarianceacct": {
+        "data_type": "double"
+      },
+      "custitem_cmms_labor_pricing_model": {
+        "data_type": "double"
+      },
+      "custitem_cmms_part_cost_acc": {
+        "data_type": "double"
+      },
+      "custitem_cmms_service_order_type": {
+        "data_type": "double"
+      },
+      "custitem_cmms_service_time_type": {
+        "data_type": "double"
+      },
+      "custitem_cmms_service_type": {
+        "data_type": "double"
+      },
+      "custitem_cmms_required_usage_unit": {
+        "data_type": "double"
+      },
+      "custitem_ks_refund_stk_account": {
+        "data_type": "double"
+      },
+      "custitem_ar_cod_insumo_pv": {
+        "data_type": "string"
+      },
+      "custitem_ar_critico": {
+        "data_type": "string"
+      },
+      "custitem_ar_rdl": {
+        "data_type": "string"
+      },
+      "custitem_bit_average_cost": {
+        "data_type": "double"
+      },
+      "custitem_bit_rop": {
+        "data_type": "string"
+      },
+      "custitem_cmms_auto_gen_po": {
+        "data_type": "string"
+      },
+      "custitem_cmms_create_return_author": {
+        "data_type": "string"
+      },
+      "custitem_cmms_item_type": {
+        "data_type": "double"
+      },
+      "custitem_hs_certification_required": {
+        "data_type": "string"
+      },
+      "vendorname": {
+        "data_type": "string"
+      },
+      "custreturnvarianceaccount": {
+        "data_type": "double"
+      },
+      "custitem_ar_codigo_proveedor": {
+        "data_type": "string"
+      },
+      "mpn": {
+        "data_type": "string"
+      },
+      "countryofmanufacture": {
+        "data_type": "string"
+      },
+      "custitem_bit_item_gto_importacion": {
+        "data_type": "double"
+      },
+      "externalid": {
+        "data_type": "string"
+      },
+      "manufacturer": {
+        "data_type": "string"
+      },
+      "custitem_ar_porcentaje_solidos": {
+        "data_type": "double"
+      },
+      "lastinventorycostingcorrectiondate": {
+        "data_type": "date"
+      },
+      "custitem_wmsse_replen_maxqty": {
+        "data_type": "double"
+      },
+      "custitem_wmsse_replen_minqty": {
+        "data_type": "double"
+      },
+      "preferredlocation": {
+        "data_type": "double"
+      },
+      "purchaseorderquantitydiff": {
+        "data_type": "double"
+      },
+      "receiptquantitydiff": {
+        "data_type": "double"
+      },
+      "custitem_ar_responsable_articulo_ensam": {
+        "data_type": "double"
+      },
+      "custitem_ar_predeterminado_proveedor": {
+        "data_type": "double"
+      },
+      "custitem_ar_dimension_hojas": {
+        "data_type": "double"
+      },
+      "custitem_cmms_equipment_category": {
+        "data_type": "double"
+      },
+      "custitem_cmms_equipment_type": {
+        "data_type": "double"
+      },
+      "itemprocessfamily": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "PurchOrd",
+    "columns": {
+      "abbrevtype": {
+        "data_type": "string"
+      },
+      "actualshipdate": {
+        "data_type": "date"
+      },
+      "autocalculatelag": {
+        "data_type": "string"
+      },
+      "billingaddress": {
+        "data_type": "int"
+      },
+      "billingstatus": {
+        "data_type": "string"
+      },
+      "closedate": {
+        "data_type": "date"
+      },
+      "createdby": {
+        "data_type": "int"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "currency": {
+        "data_type": "string"
+      },
+      "daysopen": {
+        "data_type": "double"
+      },
+      "email": {
+        "data_type": "string"
+      },
+      "employee": {
+        "data_type": "double"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "estgrossprofit": {
+        "data_type": "double"
+      },
+      "estgrossprofitpercent": {
+        "data_type": "double"
+      },
+      "exchangerate": {
+        "data_type": "double"
+      },
+      "foreigntotal": {
+        "data_type": "double"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "incoterm": {
+        "data_type": "int"
+      },
+      "isbookspecific": {
+        "data_type": "string"
+      },
+      "isfinchrg": {
+        "data_type": "string"
+      },
+      "isreversal": {
+        "data_type": "string"
+      },
+      "iswip": {
+        "data_type": "string"
+      },
+      "lastmodifiedby": {
+        "data_type": "int"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "nexus": {
+        "data_type": "boolean"
+      },
+      "number": {
+        "data_type": "int"
+      },
+      "ordpicked": {
+        "data_type": "string"
+      },
+      "outsourced": {
+        "data_type": "string"
+      },
+      "paymenthold": {
+        "data_type": "string"
+      },
+      "posting": {
+        "data_type": "string"
+      },
+      "postingperiod": {
+        "data_type": "int"
+      },
+      "printedpickingticket": {
+        "data_type": "string"
+      },
+      "recordtype": {
+        "data_type": "string"
+      },
+      "shipdate": {
+        "data_type": "date"
+      },
+      "shippingaddress": {
+        "data_type": "double"
+      },
+      "status": {
+        "data_type": "string"
+      },
+      "terms": {
+        "data_type": "int"
+      },
+      "trandate": {
+        "data_type": "date"
+      },
+      "trandisplayname": {
+        "data_type": "string"
+      },
+      "tranid": {
+        "data_type": "string"
+      },
+      "transactionnumber": {
+        "data_type": "string"
+      },
+      "type": {
+        "data_type": "string"
+      },
+      "typebaseddocumentnumber": {
+        "data_type": "string"
+      },
+      "userevenuearrangement": {
+        "data_type": "string"
+      },
+      "visibletocustomer": {
+        "data_type": "string"
+      },
+      "void": {
+        "data_type": "string"
+      },
+      "voided": {
+        "data_type": "string"
+      },
+      "daysoverduesearch": {
+        "data_type": "double"
+      },
+      "duedate": {
+        "data_type": "date"
+      }
+    }
+  },
+  {
+    "table_name": "bom",
+    "columns": {
+      "availableforallassemblies": {
+        "data_type": "string"
+      },
+      "availableforalllocations": {
+        "data_type": "string"
+      },
+      "availableforlocations": {
+        "data_type": "string"
+      },
+      "availableforsubisidiaries": {
+        "data_type": "int"
+      },
+      "bomrevision": {
+        "data_type": "int"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "custrecord_aradh1": {
+        "data_type": "double"
+      },
+      "custrecord_aradh1b": {
+        "data_type": "double"
+      },
+      "custrecord_aranchopadre": {
+        "data_type": "double"
+      },
+      "custrecord_arcaradeimpresion": {
+        "data_type": "double"
+      },
+      "custrecord_arimpresion": {
+        "data_type": "double"
+      },
+      "custrecord_arprovci": {
+        "data_type": "int"
+      },
+      "custrecord_arprovresp": {
+        "data_type": "int"
+      },
+      "custrecord_arrespaldo": {
+        "data_type": "double"
+      },
+      "custrecord_arsil1": {
+        "data_type": "int"
+      },
+      "custrecord_nombre_codigoparamostrar": {
+        "data_type": "string"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "includechildren": {
+        "data_type": "string"
+      },
+      "isinactive": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "name": {
+        "data_type": "string"
+      },
+      "subsidiary": {
+        "data_type": "double"
+      },
+      "usecomponentyield": {
+        "data_type": "string"
+      },
+      "usedonassembly": {
+        "data_type": "string"
+      },
+      "externalid": {
+        "data_type": "string"
+      },
+      "custrecord_ar_cod_anterior_bom": {
+        "data_type": "string"
+      },
+      "custrecord_ar_comp1": {
+        "data_type": "double"
+      },
+      "custrecord_ar_comp2": {
+        "data_type": "double"
+      },
+      "custrecord_ar_comp3": {
+        "data_type": "double"
+      },
+      "custrecord_ar_comp4": {
+        "data_type": "double"
+      },
+      "custrecord_arnota": {
+        "data_type": "double"
+      },
+      "custrecord_bom_nota": {
+        "data_type": "string"
+      },
+      "custrecord_ar_comp5": {
+        "data_type": "double"
+      },
+      "custrecord_ar_comp6": {
+        "data_type": "double"
+      },
+      "custrecord_ar_comp7": {
+        "data_type": "double"
+      },
+      "custrecord_arrecubrimiento": {
+        "data_type": "double"
+      },
+      "custrecord_arsil2": {
+        "data_type": "double"
+      },
+      "custrecord_aradh2": {
+        "data_type": "double"
+      },
+      "custrecord_aradh2b": {
+        "data_type": "double"
+      },
+      "custrecord_arcomponenteinterno": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "customer",
+    "columns": {
+      "alcoholrecipienttype": {
+        "data_type": "string"
+      },
+      "altname": {
+        "data_type": "string"
+      },
+      "balancesearch": {
+        "data_type": "double"
+      },
+      "companyname": {
+        "data_type": "string"
+      },
+      "creditholdoverride": {
+        "data_type": "string"
+      },
+      "creditlimit": {
+        "data_type": "double"
+      },
+      "cseg1": {
+        "data_type": "boolean"
+      },
+      "cseg_ar_tipo_venta": {
+        "data_type": "double"
+      },
+      "cseg_ar_tipodeclien": {
+        "data_type": "double"
+      },
+      "cseg_ar_zonacomerc": {
+        "data_type": "double"
+      },
+      "currency": {
+        "data_type": "string"
+      },
+      "custentity6": {
+        "data_type": "double"
+      },
+      "custentity_2663_customer_refund": {
+        "data_type": "string"
+      },
+      "custentity_2663_direct_debit": {
+        "data_type": "string"
+      },
+      "custentity_4601_defaultwitaxcode": {
+        "data_type": "double"
+      },
+      "custentity_ar_acuerdo_seguridad": {
+        "data_type": "boolean"
+      },
+      "custentity_ar_ana_cof_data": {
+        "data_type": "string"
+      },
+      "custentity_ar_cat": {
+        "data_type": "string"
+      },
+      "custentity_ar_certificado_ctpat": {
+        "data_type": "boolean"
+      },
+      "custentity_ar_certificado_iso": {
+        "data_type": "string"
+      },
+      "custentity_ar_certificado_oea": {
+        "data_type": "string"
+      },
+      "custentity_ar_codcliecorp": {
+        "data_type": "string"
+      },
+      "custentity_ar_codlistadeprecios": {
+        "data_type": "string"
+      },
+      "custentity_ar_departamento_entidad": {
+        "data_type": "double"
+      },
+      "custentity_ar_desearecibirnoticias": {
+        "data_type": "string"
+      },
+      "custentity_ar_doc_legal": {
+        "data_type": "string"
+      },
+      "custentity_ar_fechadefundacion": {
+        "data_type": "date"
+      },
+      "custentity_ar_fechavinculacion": {
+        "data_type": "date"
+      },
+      "custentity_ar_id": {
+        "data_type": "string"
+      },
+      "custentity_ar_nit_factura": {
+        "data_type": "int"
+      },
+      "custentity_ar_porttafoliodeinteres": {
+        "data_type": "boolean"
+      },
+      "custentity_ar_statuscartera": {
+        "data_type": "string"
+      },
+      "custentity_ar_territoriocliente": {
+        "data_type": "double"
+      },
+      "custentity_ar_tipocliente": {
+        "data_type": "double"
+      },
+      "custentity_bit_aprobador_cte": {
+        "data_type": "double"
+      },
+      "custentity_bit_convenio": {
+        "data_type": "string"
+      },
+      "custentity_bit_ecu_relatedparty": {
+        "data_type": "string"
+      },
+      "custentity_bit_estado_aprobacion_de_ct": {
+        "data_type": "boolean"
+      },
+      "custentity_bit_id_type_co": {
+        "data_type": "double"
+      },
+      "custentity_bit_is_agent_ret": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_documentdigitverificat": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_commercial_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_company_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_entitydocument": {
+        "data_type": "int"
+      },
+      "custentity_bit_lt_md_entity_updated": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_md_exc_fatal_error": {
+        "data_type": "string"
+      },
+      "custentity_bit_pe_agent_perception": {
+        "data_type": "string"
+      },
+      "custentity_bit_pe_agent_retention": {
+        "data_type": "string"
+      },
+      "custentity_bit_pe_entity_except_percetpt": {
+        "data_type": "string"
+      },
+      "custentity_bit_pe_good_taxpayer": {
+        "data_type": "string"
+      },
+      "custentity_bit_zona_de_inventario": {
+        "data_type": "string"
+      },
+      "custentity_cmms_block_estim_usage_rdg": {
+        "data_type": "string"
+      },
+      "custentity_cmms_enabled": {
+        "data_type": "string"
+      },
+      "custentity_cmms_group_estimate_so": {
+        "data_type": "string"
+      },
+      "custentity_cmms_has_attempt_cust_eq_gen": {
+        "data_type": "string"
+      },
+      "custentity_naw_trans_need_approval": {
+        "data_type": "string"
+      },
+      "custentity_sv_clientecritico": {
+        "data_type": "string"
+      },
+      "custentity_sv_incoterms": {
+        "data_type": "string"
+      },
+      "custentity_wmsse_asn_required": {
+        "data_type": "string"
+      },
+      "custentityar_certificado_basc": {
+        "data_type": "string"
+      },
+      "custentityar_pago_con_tc": {
+        "data_type": "string"
+      },
+      "custentityar_pais_cliente": {
+        "data_type": "string"
+      },
+      "custentityks_monedas_nego": {
+        "data_type": "double"
+      },
+      "dateclosed": {
+        "data_type": "date"
+      },
+      "datecreated": {
+        "data_type": "date"
+      },
+      "daysoverduesearch": {
+        "data_type": "string"
+      },
+      "defaultbillingaddress": {
+        "data_type": "double"
+      },
+      "defaultshippingaddress": {
+        "data_type": "double"
+      },
+      "depositbalancesearch": {
+        "data_type": "double"
+      },
+      "duplicate": {
+        "data_type": "string"
+      },
+      "email": {
+        "data_type": "string"
+      },
+      "emailpreference": {
+        "data_type": "string"
+      },
+      "emailtransactions": {
+        "data_type": "string"
+      },
+      "entityid": {
+        "data_type": "string"
+      },
+      "entitystatus": {
+        "data_type": "int"
+      },
+      "entitytitle": {
+        "data_type": "string"
+      },
+      "externalid": {
+        "data_type": "string"
+      },
+      "faxtransactions": {
+        "data_type": "string"
+      },
+      "firstsaledate": {
+        "data_type": "date"
+      },
+      "firstsaleperiod": {
+        "data_type": "int"
+      },
+      "fullname": {
+        "data_type": "string"
+      },
+      "giveaccess": {
+        "data_type": "string"
+      },
+      "globalsubscriptionstatus": {
+        "data_type": "int"
+      },
+      "groupinvoices": {
+        "data_type": "string"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isautogeneratedrepresentingentity": {
+        "data_type": "string"
+      },
+      "isbudgetapproved": {
+        "data_type": "string"
+      },
+      "isinactive": {
+        "data_type": "string"
+      },
+      "isjob": {
+        "data_type": "string"
+      },
+      "isperson": {
+        "data_type": "string"
+      },
+      "language": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "lastsaledate": {
+        "data_type": "date"
+      },
+      "lastsaleperiod": {
+        "data_type": "int"
+      },
+      "oncredithold": {
+        "data_type": "string"
+      },
+      "overduebalancesearch": {
+        "data_type": "string"
+      },
+      "phone": {
+        "data_type": "double"
+      },
+      "pricelevel": {
+        "data_type": "int"
+      },
+      "printtransactions": {
+        "data_type": "string"
+      },
+      "probability": {
+        "data_type": "double"
+      },
+      "receivablesaccount": {
+        "data_type": "int"
+      },
+      "salesrep": {
+        "data_type": "int"
+      },
+      "searchstage": {
+        "data_type": "string"
+      },
+      "shipcomplete": {
+        "data_type": "string"
+      },
+      "shippingcarrier": {
+        "data_type": "string"
+      },
+      "terms": {
+        "data_type": "int"
+      },
+      "toplevelparent": {
+        "data_type": "int"
+      },
+      "unbilledorderssearch": {
+        "data_type": "boolean"
+      },
+      "unsubscribe": {
+        "data_type": "string"
+      },
+      "weblead": {
+        "data_type": "string"
+      },
+      "custentity_bit_correo_electronico_contac": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_configuration_status": {
+        "data_type": "int"
+      },
+      "custentity_bit_lt_registration_date": {
+        "data_type": "date"
+      },
+      "firstorderdate": {
+        "data_type": "date"
+      },
+      "lastorderdate": {
+        "data_type": "date"
+      },
+      "custentity_ar_tipo_cliente_potencial": {
+        "data_type": "boolean"
+      },
+      "custentityar_seg_cat_cliente_potecial": {
+        "data_type": "int"
+      },
+      "dategrosslead": {
+        "data_type": "date"
+      },
+      "datelead": {
+        "data_type": "date"
+      },
+      "url": {
+        "data_type": "string"
+      },
+      "custentity_ar_codigo_pais_cliente": {
+        "data_type": "int"
+      },
+      "custentity_ar_fecha_renovacion": {
+        "data_type": "date"
+      },
+      "startdate": {
+        "data_type": "date"
+      },
+      "contact": {
+        "data_type": "double"
+      },
+      "category": {
+        "data_type": "double"
+      },
+      "dateconversion": {
+        "data_type": "date"
+      },
+      "entitynumber": {
+        "data_type": "double"
+      },
+      "isexplicitconversion": {
+        "data_type": "string"
+      },
+      "custentity_ar_un_med_venta": {
+        "data_type": "double"
+      },
+      "custentity_ar_tipo_entidad": {
+        "data_type": "double"
+      },
+      "custentity_bit_lt_ei_first_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_last_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_second_name": {
+        "data_type": "string"
+      },
+      "firstname": {
+        "data_type": "string"
+      },
+      "lastname": {
+        "data_type": "string"
+      },
+      "middlename": {
+        "data_type": "string"
+      },
+      "comments": {
+        "data_type": "string"
+      },
+      "altphone": {
+        "data_type": "int"
+      },
+      "dateprospect": {
+        "data_type": "date"
+      },
+      "custentity_bit_lt_ei_other_name": {
+        "data_type": "string"
+      },
+      "salutation": {
+        "data_type": "string"
+      },
+      "custentity_ar_seg_cat_cliente": {
+        "data_type": "double"
+      },
+      "custentity_ks_regimentributari": {
+        "data_type": "double"
+      },
+      "custentity_ar_lugar_incoterm": {
+        "data_type": "double"
+      },
+      "fax": {
+        "data_type": "double"
+      },
+      "custentity_arcat_cliente_interesado": {
+        "data_type": "double"
+      },
+      "custentity_bit_lt_other_emails": {
+        "data_type": "string"
+      },
+      "custentity_ar_cond_com_prod": {
+        "data_type": "string"
+      },
+      "custentity_sv_resultadoencuestosatisfacc": {
+        "data_type": "double"
+      },
+      "custentityar_encuesta_satisfaccion_anter": {
+        "data_type": "double"
+      },
+      "altemail": {
+        "data_type": "string"
+      },
+      "custentity_ar_naviera_aci": {
+        "data_type": "double"
+      },
+      "custentityar_tipo_de_comprador": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "vendor",
+    "columns": {
+      "altname": {
+        "data_type": "string"
+      },
+      "balance": {
+        "data_type": "double"
+      },
+      "balanceprimary": {
+        "data_type": "double"
+      },
+      "companyname": {
+        "data_type": "string"
+      },
+      "currency": {
+        "data_type": "int"
+      },
+      "custentity8": {
+        "data_type": "string"
+      },
+      "custentity_11724_pay_bank_fees": {
+        "data_type": "string"
+      },
+      "custentity_2663_payment_method": {
+        "data_type": "string"
+      },
+      "custentity_ar_acceso_informacion": {
+        "data_type": "string"
+      },
+      "custentity_ar_ana_cof_data": {
+        "data_type": "string"
+      },
+      "custentity_ar_cat": {
+        "data_type": "string"
+      },
+      "custentity_ar_contacto_carga_expo": {
+        "data_type": "string"
+      },
+      "custentity_ar_doc_legal": {
+        "data_type": "string"
+      },
+      "custentity_ar_prospecto_creado": {
+        "data_type": "string"
+      },
+      "custentity_ar_prov_entidad_exterior": {
+        "data_type": "string"
+      },
+      "custentity_ar_prov_entidad_nacional": {
+        "data_type": "string"
+      },
+      "custentity_ar_prov_estrategico": {
+        "data_type": "string"
+      },
+      "custentity_ar_prov_revisado_fin": {
+        "data_type": "string"
+      },
+      "custentity_ar_prov_revisado_imp": {
+        "data_type": "string"
+      },
+      "custentity_ar_proveedor_critico": {
+        "data_type": "string"
+      },
+      "custentity_ar_sobre_fecha_ven_comex": {
+        "data_type": "string"
+      },
+      "custentity_ar_suministro_seguridad": {
+        "data_type": "string"
+      },
+      "custentity_bit_aprobador_cte": {
+        "data_type": "boolean"
+      },
+      "custentity_bit_ecu_appliesdoubletaxpayme": {
+        "data_type": "string"
+      },
+      "custentity_bit_ecu_relatedparty": {
+        "data_type": "string"
+      },
+      "custentity_bit_estado_aprobacion_de_ct": {
+        "data_type": "double"
+      },
+      "custentity_bit_fecha_vencim_fecha_bl": {
+        "data_type": "string"
+      },
+      "custentity_bit_id_type_co": {
+        "data_type": "int"
+      },
+      "custentity_bit_lt_documentdigitverificat": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_commercial_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_company_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_entitydocument": {
+        "data_type": "int"
+      },
+      "custentity_bit_lt_md_entity_updated": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_md_exc_fatal_error": {
+        "data_type": "string"
+      },
+      "custentity_bit_pe_subject_wth": {
+        "data_type": "string"
+      },
+      "custentity_bit_proveedor_gastos_viaje": {
+        "data_type": "string"
+      },
+      "custentity_bit_revision_final": {
+        "data_type": "string"
+      },
+      "custentity_cmms_enabled": {
+        "data_type": "string"
+      },
+      "custentity_cmms_is_shared_access": {
+        "data_type": "string"
+      },
+      "custentity_cmms_is_technician": {
+        "data_type": "string"
+      },
+      "custentity_cmms_is_terminated": {
+        "data_type": "string"
+      },
+      "custentity_cmms_iscrewmanager": {
+        "data_type": "string"
+      },
+      "custentity_cmms_pb_allow_cross_subs_view": {
+        "data_type": "string"
+      },
+      "custentity_cmms_unavailable_4_autoassign": {
+        "data_type": "string"
+      },
+      "custentity_cmms_vendor_can_enter_time": {
+        "data_type": "string"
+      },
+      "custentityar_intermed_prov": {
+        "data_type": "string"
+      },
+      "custentityar_pais_cliente": {
+        "data_type": "boolean"
+      },
+      "custentitycustentity_ks_is_carrier": {
+        "data_type": "string"
+      },
+      "custentityks_monedas_nego": {
+        "data_type": "int"
+      },
+      "datecreated": {
+        "data_type": "date"
+      },
+      "defaultbillingaddress": {
+        "data_type": "int"
+      },
+      "defaultshippingaddress": {
+        "data_type": "double"
+      },
+      "duplicate": {
+        "data_type": "string"
+      },
+      "email": {
+        "data_type": "string"
+      },
+      "emailpreference": {
+        "data_type": "string"
+      },
+      "emailtransactions": {
+        "data_type": "string"
+      },
+      "entityid": {
+        "data_type": "string"
+      },
+      "entitytitle": {
+        "data_type": "string"
+      },
+      "faxtransactions": {
+        "data_type": "string"
+      },
+      "giveaccess": {
+        "data_type": "string"
+      },
+      "globalsubscriptionstatus": {
+        "data_type": "int"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "is1099eligible": {
+        "data_type": "string"
+      },
+      "isautogeneratedrepresentingentity": {
+        "data_type": "string"
+      },
+      "isinactive": {
+        "data_type": "string"
+      },
+      "isjobresourcevend": {
+        "data_type": "string"
+      },
+      "isperson": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "payablesaccount": {
+        "data_type": "int"
+      },
+      "phone": {
+        "data_type": "int"
+      },
+      "predconfidence": {
+        "data_type": "boolean"
+      },
+      "predicteddays": {
+        "data_type": "boolean"
+      },
+      "prepaymentbalance": {
+        "data_type": "boolean"
+      },
+      "printtransactions": {
+        "data_type": "string"
+      },
+      "subsidiaryedition": {
+        "data_type": "string"
+      },
+      "unbilledorders": {
+        "data_type": "double"
+      },
+      "unbilledordersprimary": {
+        "data_type": "double"
+      },
+      "unsubscribe": {
+        "data_type": "string"
+      },
+      "workcalendar": {
+        "data_type": "double"
+      },
+      "legalname": {
+        "data_type": "string"
+      },
+      "category": {
+        "data_type": "int"
+      },
+      "custentity_ar_contacto_principal": {
+        "data_type": "string"
+      },
+      "custentity_ar_lugar_incoterm": {
+        "data_type": "double"
+      },
+      "custentity_bit_departamento_proveedor": {
+        "data_type": "double"
+      },
+      "custentity_bit_lt_ei_first_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_last_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_other_name": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_second_name": {
+        "data_type": "string"
+      },
+      "firstname": {
+        "data_type": "string"
+      },
+      "incoterm": {
+        "data_type": "double"
+      },
+      "lastname": {
+        "data_type": "string"
+      },
+      "middlename": {
+        "data_type": "string"
+      },
+      "terms": {
+        "data_type": "double"
+      },
+      "custentity_bit_origen": {
+        "data_type": "double"
+      },
+      "externalid": {
+        "data_type": "string"
+      },
+      "custentity_2663_email_address_notif": {
+        "data_type": "string"
+      },
+      "custentity_4601_defaultwitaxcode": {
+        "data_type": "double"
+      },
+      "salutation": {
+        "data_type": "string"
+      },
+      "contact": {
+        "data_type": "double"
+      },
+      "comments": {
+        "data_type": "string"
+      },
+      "custentity_bit_correo_notif_pago": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_ei_custom_phone_f": {
+        "data_type": "double"
+      },
+      "accountnumber": {
+        "data_type": "double"
+      },
+      "custentity_2663_eft_file_format": {
+        "data_type": "double"
+      },
+      "url": {
+        "data_type": "string"
+      },
+      "altemail": {
+        "data_type": "string"
+      },
+      "custentity_ar_acuerdo_seguridad": {
+        "data_type": "boolean"
+      },
+      "custentity_ar_certificado_ctpat": {
+        "data_type": "boolean"
+      },
+      "custentity_ar_certificado_iso": {
+        "data_type": "string"
+      },
+      "custentity_ar_certificado_oea": {
+        "data_type": "string"
+      },
+      "custentity_ar_fecha_renovacion": {
+        "data_type": "date"
+      },
+      "custentity_ar_fechavinculacion": {
+        "data_type": "date"
+      },
+      "custentity_ar_id": {
+        "data_type": "string"
+      },
+      "custentity_bit_lt_configuration_status": {
+        "data_type": "double"
+      },
+      "custentity_bit_lt_registration_date": {
+        "data_type": "date"
+      },
+      "custentityar_certificado_basc": {
+        "data_type": "string"
+      },
+      "custentity_9572_vendor_entitybank_format": {
+        "data_type": "double"
+      },
+      "custentity_9572_vendor_entitybank_sub": {
+        "data_type": "double"
+      },
+      "altphone": {
+        "data_type": "double"
+      },
+      "custentity_ks_digitoverificacion": {
+        "data_type": "double"
+      },
+      "custentity_ks_documento": {
+        "data_type": "double"
+      },
+      "custentity_ks_regimentributari": {
+        "data_type": "double"
+      },
+      "custentity_ks_tipo_doc_identidad": {
+        "data_type": "double"
+      },
+      "custentity_bit_ar_pais": {
+        "data_type": "double"
+      },
+      "custentity_bit_pe_identitydoctype": {
+        "data_type": "double"
+      },
+      "custentity_bit_pe_paydetractionacc": {
+        "data_type": "double"
+      },
+      "custentity_bit_pe_t25": {
+        "data_type": "double"
+      },
+      "custentity_bit_pe_tipovineconomica": {
+        "data_type": "double"
+      },
+      "entitynumber": {
+        "data_type": "double"
+      },
+      "custentity_bit_lt_ei_entity_ec_activity": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "customersubsidiaryrelationship",
+    "columns": {
+      "balance": {
+        "data_type": "double"
+      },
+      "depositbalance": {
+        "data_type": "double"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isprimarysub": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "name": {
+        "data_type": "string"
+      },
+      "primarycurrency": {
+        "data_type": "string"
+      },
+      "subsidiary": {
+        "data_type": "int"
+      },
+      "unbilledorders": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "SalesOrd",
+    "columns": {
+      "abbrevtype": {
+        "data_type": "string"
+      },
+      "actualshipdate": {
+        "data_type": "date"
+      },
+      "autocalculatelag": {
+        "data_type": "string"
+      },
+      "billingaddress": {
+        "data_type": "int"
+      },
+      "billingstatus": {
+        "data_type": "string"
+      },
+      "closedate": {
+        "data_type": "date"
+      },
+      "createdby": {
+        "data_type": "int"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "currency": {
+        "data_type": "int"
+      },
+      "daysopen": {
+        "data_type": "double"
+      },
+      "email": {
+        "data_type": "string"
+      },
+      "employee": {
+        "data_type": "double"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "estgrossprofit": {
+        "data_type": "double"
+      },
+      "estgrossprofitpercent": {
+        "data_type": "double"
+      },
+      "exchangerate": {
+        "data_type": "double"
+      },
+      "foreigntotal": {
+        "data_type": "double"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isbookspecific": {
+        "data_type": "string"
+      },
+      "isfinchrg": {
+        "data_type": "string"
+      },
+      "isreversal": {
+        "data_type": "string"
+      },
+      "iswip": {
+        "data_type": "string"
+      },
+      "lastmodifiedby": {
+        "data_type": "int"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "nexus": {
+        "data_type": "boolean"
+      },
+      "number": {
+        "data_type": "int"
+      },
+      "ordpicked": {
+        "data_type": "string"
+      },
+      "otherrefnum": {
+        "data_type": "string"
+      },
+      "outsourced": {
+        "data_type": "string"
+      },
+      "paymenthold": {
+        "data_type": "string"
+      },
+      "posting": {
+        "data_type": "string"
+      },
+      "postingperiod": {
+        "data_type": "int"
+      },
+      "printedpickingticket": {
+        "data_type": "string"
+      },
+      "recordtype": {
+        "data_type": "string"
+      },
+      "shipcomplete": {
+        "data_type": "string"
+      },
+      "shipdate": {
+        "data_type": "date"
+      },
+      "shippingaddress": {
+        "data_type": "int"
+      },
+      "status": {
+        "data_type": "string"
+      },
+      "terms": {
+        "data_type": "int"
+      },
+      "totalcostestimate": {
+        "data_type": "double"
+      },
+      "trandate": {
+        "data_type": "date"
+      },
+      "trandisplayname": {
+        "data_type": "string"
+      },
+      "tranid": {
+        "data_type": "string"
+      },
+      "transactionnumber": {
+        "data_type": "string"
+      },
+      "type": {
+        "data_type": "string"
+      },
+      "typebaseddocumentnumber": {
+        "data_type": "string"
+      },
+      "userevenuearrangement": {
+        "data_type": "string"
+      },
+      "visibletocustomer": {
+        "data_type": "string"
+      },
+      "void": {
+        "data_type": "string"
+      },
+      "voided": {
+        "data_type": "string"
+      },
+      "linkedtrackingnumberlist": {
+        "data_type": "string"
+      },
+      "nextbilldate": {
+        "data_type": "date"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "externalid": {
+        "data_type": "double"
+      },
+      "source": {
+        "data_type": "string"
+      },
+      "fax": {
+        "data_type": "string"
+      }
+    }
+  },
+  {
+    "table_name": "CustInvc",
+    "columns": {
+      "abbrevtype": {
+        "data_type": "string"
+      },
+      "autocalculatelag": {
+        "data_type": "string"
+      },
+      "billingaddress": {
+        "data_type": "double"
+      },
+      "billingstatus": {
+        "data_type": "string"
+      },
+      "closedate": {
+        "data_type": "date"
+      },
+      "createdby": {
+        "data_type": "int"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "currency": {
+        "data_type": "int"
+      },
+      "daysopen": {
+        "data_type": "int"
+      },
+      "daysoverduesearch": {
+        "data_type": "string"
+      },
+      "duedate": {
+        "data_type": "date"
+      },
+      "email": {
+        "data_type": "string"
+      },
+      "employee": {
+        "data_type": "double"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "estgrossprofit": {
+        "data_type": "double"
+      },
+      "estgrossprofitpercent": {
+        "data_type": "double"
+      },
+      "exchangerate": {
+        "data_type": "double"
+      },
+      "foreignamountpaid": {
+        "data_type": "double"
+      },
+      "foreignamountunpaid": {
+        "data_type": "double"
+      },
+      "foreigntotal": {
+        "data_type": "double"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isbookspecific": {
+        "data_type": "string"
+      },
+      "isfinchrg": {
+        "data_type": "string"
+      },
+      "isreversal": {
+        "data_type": "string"
+      },
+      "iswip": {
+        "data_type": "string"
+      },
+      "lastmodifiedby": {
+        "data_type": "int"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "linkedtrackingnumberlist": {
+        "data_type": "string"
+      },
+      "nexus": {
+        "data_type": "boolean"
+      },
+      "number": {
+        "data_type": "int"
+      },
+      "ordpicked": {
+        "data_type": "string"
+      },
+      "otherrefnum": {
+        "data_type": "string"
+      },
+      "outsourced": {
+        "data_type": "string"
+      },
+      "paymenthold": {
+        "data_type": "string"
+      },
+      "posting": {
+        "data_type": "string"
+      },
+      "postingperiod": {
+        "data_type": "int"
+      },
+      "printedpickingticket": {
+        "data_type": "string"
+      },
+      "recordtype": {
+        "data_type": "string"
+      },
+      "shipcomplete": {
+        "data_type": "string"
+      },
+      "shipdate": {
+        "data_type": "date"
+      },
+      "shippingaddress": {
+        "data_type": "int"
+      },
+      "status": {
+        "data_type": "string"
+      },
+      "terms": {
+        "data_type": "double"
+      },
+      "totalcostestimate": {
+        "data_type": "string"
+      },
+      "trandate": {
+        "data_type": "date"
+      },
+      "trandisplayname": {
+        "data_type": "string"
+      },
+      "tranid": {
+        "data_type": "string"
+      },
+      "transactionnumber": {
+        "data_type": "string"
+      },
+      "type": {
+        "data_type": "string"
+      },
+      "typebaseddocumentnumber": {
+        "data_type": "string"
+      },
+      "userevenuearrangement": {
+        "data_type": "string"
+      },
+      "visibletocustomer": {
+        "data_type": "string"
+      },
+      "void": {
+        "data_type": "string"
+      },
+      "voided": {
+        "data_type": "string"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "message": {
+        "data_type": "string"
+      },
+      "fax": {
+        "data_type": "string"
+      },
+      "externalid": {
+        "data_type": "string"
+      },
+      "source": {
+        "data_type": "string"
+      },
+      "enddate": {
+        "data_type": "date"
+      }
+    }
+  },
+  {
+    "table_name": "vendorsubsidiaryrelationship",
+    "columns": {
+      "balance": {
+        "data_type": "double"
+      },
+      "balancebase": {
+        "data_type": "double"
+      },
+      "basecurrency": {
+        "data_type": "int"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isprimarysub": {
+        "data_type": "string"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "name": {
+        "data_type": "string"
+      },
+      "prepaymentbalance": {
+        "data_type": "double"
+      },
+      "prepaymentbalancebase": {
+        "data_type": "double"
+      },
+      "primarycurrency": {
+        "data_type": "int"
+      },
+      "subsidiary": {
+        "data_type": "int"
+      },
+      "unbilledorders": {
+        "data_type": "double"
+      },
+      "unbilledordersbase": {
+        "data_type": "double"
+      }
+    }
+  },
+  {
+    "table_name": "CustPymt",
+    "columns": {
+      "abbrevtype": {
+        "data_type": "string"
+      },
+      "autocalculatelag": {
+        "data_type": "string"
+      },
+      "billingstatus": {
+        "data_type": "string"
+      },
+      "closedate": {
+        "data_type": "date"
+      },
+      "createdby": {
+        "data_type": "int"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "currency": {
+        "data_type": "int"
+      },
+      "daysopen": {
+        "data_type": "boolean"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "exchangerate": {
+        "data_type": "double"
+      },
+      "foreignpaymentamountunused": {
+        "data_type": "boolean"
+      },
+      "foreignpaymentamountused": {
+        "data_type": "double"
+      },
+      "foreigntotal": {
+        "data_type": "double"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isbookspecific": {
+        "data_type": "string"
+      },
+      "isfinchrg": {
+        "data_type": "string"
+      },
+      "isreversal": {
+        "data_type": "string"
+      },
+      "iswip": {
+        "data_type": "string"
+      },
+      "lastmodifiedby": {
+        "data_type": "int"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "nexus": {
+        "data_type": "boolean"
+      },
+      "number": {
+        "data_type": "int"
+      },
+      "ordpicked": {
+        "data_type": "string"
+      },
+      "outsourced": {
+        "data_type": "string"
+      },
+      "paymenthold": {
+        "data_type": "string"
+      },
+      "posting": {
+        "data_type": "string"
+      },
+      "postingperiod": {
+        "data_type": "int"
+      },
+      "printedpickingticket": {
+        "data_type": "string"
+      },
+      "recordtype": {
+        "data_type": "string"
+      },
+      "status": {
+        "data_type": "string"
+      },
+      "trandate": {
+        "data_type": "date"
+      },
+      "trandisplayname": {
+        "data_type": "string"
+      },
+      "tranid": {
+        "data_type": "string"
+      },
+      "transactionnumber": {
+        "data_type": "string"
+      },
+      "type": {
+        "data_type": "string"
+      },
+      "typebaseddocumentnumber": {
+        "data_type": "string"
+      },
+      "userevenuearrangement": {
+        "data_type": "string"
+      },
+      "visibletocustomer": {
+        "data_type": "string"
+      },
+      "void": {
+        "data_type": "string"
+      },
+      "voided": {
+        "data_type": "string"
+      }
+    }
+  },
+  {
+    "table_name": "Opprtnty",
+    "columns": {
+      "abbrevtype": {
+        "data_type": "string"
+      },
+      "autocalculatelag": {
+        "data_type": "string"
+      },
+      "billingaddress": {
+        "data_type": "int"
+      },
+      "billingstatus": {
+        "data_type": "string"
+      },
+      "createdby": {
+        "data_type": "int"
+      },
+      "createddate": {
+        "data_type": "date"
+      },
+      "currency": {
+        "data_type": "boolean"
+      },
+      "daysopen": {
+        "data_type": "int"
+      },
+      "employee": {
+        "data_type": "int"
+      },
+      "entity": {
+        "data_type": "int"
+      },
+      "entitystatus": {
+        "data_type": "int"
+      },
+      "exchangerate": {
+        "data_type": "double"
+      },
+      "expectedclosedate": {
+        "data_type": "date"
+      },
+      "forecasttype": {
+        "data_type": "int"
+      },
+      "foreigntotal": {
+        "data_type": "boolean"
+      },
+      "id": {
+        "data_type": "int"
+      },
+      "isbookspecific": {
+        "data_type": "string"
+      },
+      "isbudgetapproved": {
+        "data_type": "string"
+      },
+      "isfinchrg": {
+        "data_type": "string"
+      },
+      "isreversal": {
+        "data_type": "string"
+      },
+      "iswip": {
+        "data_type": "string"
+      },
+      "lastmodifiedby": {
+        "data_type": "int"
+      },
+      "lastmodifieddate": {
+        "data_type": "date"
+      },
+      "memo": {
+        "data_type": "string"
+      },
+      "nexus": {
+        "data_type": "boolean"
+      },
+      "number": {
+        "data_type": "boolean"
+      },
+      "ordpicked": {
+        "data_type": "string"
+      },
+      "outsourced": {
+        "data_type": "string"
+      },
+      "paymenthold": {
+        "data_type": "string"
+      },
+      "posting": {
+        "data_type": "string"
+      },
+      "postingperiod": {
+        "data_type": "int"
+      },
+      "printedpickingticket": {
+        "data_type": "string"
+      },
+      "probability": {
+        "data_type": "double"
+      },
+      "projectedtotal": {
+        "data_type": "int"
+      },
+      "rangehigh": {
+        "data_type": "int"
+      },
+      "rangelow": {
+        "data_type": "int"
+      },
+      "shipcomplete": {
+        "data_type": "string"
+      },
+      "shippingaddress": {
+        "data_type": "int"
+      },
+      "status": {
+        "data_type": "string"
+      },
+      "title": {
+        "data_type": "string"
+      },
+      "trandate": {
+        "data_type": "date"
+      },
+      "trandisplayname": {
+        "data_type": "string"
+      },
+      "tranid": {
+        "data_type": "string"
+      },
+      "transactionnumber": {
+        "data_type": "string"
+      },
+      "type": {
+        "data_type": "string"
+      },
+      "typebaseddocumentnumber": {
+        "data_type": "string"
+      },
+      "userevenuearrangement": {
+        "data_type": "string"
+      },
+      "visibletocustomer": {
+        "data_type": "string"
+      },
+      "void": {
+        "data_type": "string"
+      },
+      "voided": {
+        "data_type": "string"
+      },
+      "weightedtotal": {
+        "data_type": "int"
+      }
+    }
+  }
+]

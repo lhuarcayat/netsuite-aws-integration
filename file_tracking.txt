@@ -1,0 +1,25 @@
+glue_ingest_data_1 : Archivo base, carga la data de tablas transaccionales y entidades de netsuite a S3.
+Este archivo .py se ejecuta dentro de un job de glue, la data se guarda en carpetas con el nombre de la tabla y en formato parquet
+No aplica CDC, por lo que en cada ejecución se procesa toda la data, actualmente no hay data >10MB, por lo que no afecta mucho.
+Se escogen todas las columnas de las tablas de entidades pero solo algunas columnas para las tablas transaccionales.
+Se prueban varios nombres de tablas transaccionales (muchas no existen o no se contemplan en la poc)
+
+glue_ingest_data_2: Se diferencia del archivo glue_ingest_data_1, en que solo se extrae la data de las tablas correctas (todas existen)
+
+local_extract_metadata_catalog : Archivo que guarda todas las tablas existentes en el metadata catalog de netsuit
+Se observan las tablas de entidades, los 'tipos' de tablas transaccionales y otras tablas. Este archivo se ejecuta en local
+
+local_ingest_data_all_columns : Archivo que prueba todas las columnas disponibles en los tipos de tabla transaccional, sirve para determinar qué columnas tiene cada tabla
+La información de las columnas se muestra en table_columns.json
+
+glue_ingest_data_3: Se diferencia de glue_ingest_data_2 en que además se extraen todas las columnas de las tablas transaccionales, la lista de las columnas que se extraen está en un archivo table_columns.json
+que se encuentra en el bucket 
+arcl-dev-00-glue/scripts/table_columns.json
+
+
+
+
+
+
+
+

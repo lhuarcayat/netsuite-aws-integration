@@ -1,0 +1,157 @@
+{
+  "Comment": "Orquestación de workflows Bronze y Silver de AWS Glue",
+  "StartAt": "StartBronzeWorkflow",
+  "States": {
+    "StartBronzeWorkflow": {
+      "Type": "Task",
+      "Arguments": {
+        "Name": "arcl-dev-00-netsuit-on-demand-workflow"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:startWorkflowRun",
+      "Next": "WaitForBronzeWorkflow",
+      "Comment": "Ejecutar workflow Bronze completo",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "Next": "WorkflowFailed",
+          "Assign": {
+            "bronzeError": "{% $states.errorOutput %}"
+          }
+        }
+      ],
+      "Assign": {
+        "bronzeRunId": "{% $states.result.RunId %}"
+      }
+    },
+    "WaitForBronzeWorkflow": {
+      "Type": "Wait",
+      "Seconds": 30,
+      "Next": "GetBronzeWorkflowRun"
+    },
+    "GetBronzeWorkflowRun": {
+      "Type": "Task",
+      "Arguments": {
+        "Name": "arcl-dev-00-netsuit-on-demand-workflow",
+        "RunId": "{% $bronzeRunId %}"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:getWorkflowRun",
+      "Next": "CheckBronzeWorkflowStatus",
+      "Assign": {
+        "bronzeStatus": "{% $states.result.Run.WorkflowRunProperties.Status %}"
+      }
+    },
+    "CheckBronzeWorkflowStatus": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Next": "StartSilverWorkflow",
+          "Condition": "{% ($bronzeStatus) = (\"COMPLETED\") %}"
+        },
+        {
+          "Next": "WaitForBronzeWorkflow",
+          "Condition": "{% ($bronzeStatus) = (\"RUNNING\") %}"
+        },
+        {
+          "Next": "WaitForBronzeWorkflow",
+          "Condition": "{% ($bronzeStatus) = (\"STOPPING\") %}"
+        }
+      ],
+      "Default": "BronzeWorkflowFailed"
+    },
+    "BronzeWorkflowFailed": {
+      "Type": "Fail",
+      "Error": "BronzeWorkflowError"
+    },
+    "StartSilverWorkflow": {
+      "Type": "Task",
+      "Arguments": {
+        "Name": "arcl-dev-00-silver-on-demand-workflow"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:startWorkflowRun",
+      "Comment": "Ejecutar workflow Silver completo",
+      "Next": "WaitForSilverWorkflow",
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "Next": "WorkflowFailed",
+          "Assign": {
+            "silverError": "{% $states.errorOutput %}"
+          }
+        }
+      ],
+      "Assign": {
+        "silverRunId": "{% $states.result.RunId %}"
+      }
+    },
+    "WaitForSilverWorkflow": {
+      "Type": "Wait",
+      "Seconds": 30,
+      "Next": "GetSilverWorkflowRun"
+    },
+    "GetSilverWorkflowRun": {
+      "Type": "Task",
+      "Arguments": {
+        "Name": "arcl-dev-00-silver-on-demand-workflow",
+        "RunId": "{% $silverRunId %}"
+      },
+      "Resource": "arn:aws:states:::aws-sdk:glue:getWorkflowRun",
+      "Next": "CheckSilverWorkflowStatus",
+      "Assign": {
+        "silverStatus": "{% $states.result.Run.WorkflowRunProperties.Status %}"
+      }
+    },
+    "CheckSilverWorkflowStatus": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Next": "OrchestrationSuccess",
+          "Condition": "{% ($silverStatus) = (\"COMPLETED\") %}"
+        },
+        {
+          "Next": "WaitForSilverWorkflow",
+          "Condition": "{% ($silverStatus) = (\"RUNNING\") %}"
+        },
+        {
+          "Next": "WaitForSilverWorkflow",
+          "Condition": "{% ($silverStatus) = (\"STOPPING\") %}"
+        }
+      ],
+      "Default": "SilverWorkflowFailed"
+    },
+    "WorkflowFailed": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Arguments": {
+        "Message": "{% 'Workflow de orquestación falló.'%}",
+        "TopicArn": "arn:aws:sns:us-east-1:188019708593:glue-orchestration-notifications"
+      },
+      "Next": "FinalFailure"
+    },
+    "FinalFailure": {
+      "Type": "Fail",
+      "Error": "OrchestrationError"
+    },
+    "OrchestrationSuccess": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::sns:publish",
+      "Arguments": {
+        "Message": "{% 'Orquestación Bronze-Silver completada exitosamente.'%}",
+        "TopicArn": "arn:aws:sns:us-east-1:188019708593:glue-orchestration-notifications"
+      },
+      "Next": "FinalSuccess"
+    },
+    "FinalSuccess": {
+      "Type": "Succeed",
+      "Comment": "\"Orquestación completa exitosa\""
+    },
+    "SilverWorkflowFailed": {
+      "Type": "Fail",
+      "Error": "SilverWorkflowError"
+    }
+  },
+  "QueryLanguage": "JSONata"
+}

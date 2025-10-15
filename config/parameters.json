@@ -1,0 +1,7 @@
+{
+  "input_s3_bucket": "arcl-dev-00-glue",
+  "s3_key_path": "credentials/private_key.pem",
+  "output_s3_bucket": "arcl-0367-datalake-dev-00-netsuit-bronze-data", 
+  "secret_name": "arn:aws:secretsmanager:us-east-1:188019708593:secret:arcl-dev-00-netsuit-secret-0u9sNU",
+  "region_name": "us-east-1"
+}
